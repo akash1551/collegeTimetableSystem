@@ -13,6 +13,7 @@ class Teacher(models.Model):
     teacherName = models.CharField(max_length=100)
     mobileNo = models.IntegerField()
     qualification = models.TextField()
+    workExperience = models.FloatField()
     workDetails = models.ManyToManyField('WorkDetails')
     areaOfInterest = models.ManyToManyField('Subject')
 
@@ -24,19 +25,20 @@ class WorkDetails(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     academicYear = models.IntegerField()
     subject = models.ManyToManyField('Subject')
-    howManyHoursCompletedYet = models.FloatField() #in hours
-    howManyHoursForWeeklyLectures = models.FloatField() #in hours
+    weekWorkTheoryHoursCompletedYet = models.FloatField() #in hours
+    weekWorkPracticalHoursCompletedYet = models.FloatField() #in hours
+    minWeekWorkTheoryHours = models.FloatField() #in hours
+    minWeekWorkPracticalHours = models.FloatField() #in hours
 
     def __unicode__(self):
-        return self.academicYear+" Lectures hours Completed yet: "+str(self.subject.timePeriodCompletedYet)+" "+str(self.subject.courseName)
+        return str(self.academicYear)+" Lectures hours Completed yet: "+str(self.weekWorkTheoryHoursCompletedYet)
 
 
 class Subject(models.Model):
-    subjectName = models.CharField(max_length=50)
+    subjectName = models.TextField()
     semester = models.IntegerField(null=True)
-    courseName = models.CharField(max_length=50)
+    courseName = models.CharField(max_length=50,null=True)
     courseYear = models.IntegerField(null=True)
 
-
     def __unicode__(self):
-        return self.academicYear+" "+str(self.subjectName)+" "+str(self.courseName)+" "+str(self.semester)
+        return str(self.subjectName)+" "+str(self.courseName)+" "+str(self.semester)
