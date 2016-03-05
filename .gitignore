@@ -1,0 +1,10 @@
+*.pyc
+Media/
+db.sqlite3
+/collegeTimetableSystem/db.sqlite3
+*~
+migrations/
+/collegeTimetableSystem/collegeTimetableSystem/migrations/*
+
+
+
