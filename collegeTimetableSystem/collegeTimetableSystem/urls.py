@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-
+from .views import(
+    teacher_registration,
+    teacher_login,
+    )
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^teacher_registration/$', teacher_registration),
+    url(r'^teacher_login/$', teacher_login),
 ]
