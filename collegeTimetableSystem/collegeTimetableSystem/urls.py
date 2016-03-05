@@ -19,9 +19,11 @@ from django.contrib import admin
 from .views import(
     teacher_registration,
     teacher_login,
+    assign_teacher_for_lecture,
     )
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^teacher_registration/$', teacher_registration),
     url(r'^teacher_login/$', teacher_login),
+    url(r'^assign_teacher_for_lecture/$', assign_teacher_for_lecture),
 ]
