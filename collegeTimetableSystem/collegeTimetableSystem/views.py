@@ -25,6 +25,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Max
 
+## script for validating email address
 def validateEmail(email):
     try:
         validate_email( email )
@@ -32,6 +33,7 @@ def validateEmail(email):
     except ValidationError:
         return False
 
+## script for validating mobile number
 def validate_mobile(value):
     rule = re.compile(r'^(\+91[\-\s]?)?[0]?[1789]\d{9}$')
     if not rule.search(value):
@@ -39,6 +41,7 @@ def validate_mobile(value):
     else:
         return value
 
+## teacher registration
 def teacher_registration(request):
     jsonObj=json.loads(request.body)
     jsonObj=jsonObj['userInfo']
@@ -94,6 +97,7 @@ def teacher_registration(request):
         print "Registration Successful"
         return HttpResponse(json.dumps({"validation":"Registration Successful.","redirecturl":"#/login","status":True}), content_type="application/json")
 
+## teacher login
 def teacher_login(request):
     data_dict = json.loads(request.body)
     username = data_dict['userName']
@@ -111,7 +115,7 @@ def teacher_login(request):
     else:
         return HttpResponse(json.dumps({"validation":"Invalid Login Credentials","status":False}), content_type="application/json")
 
-## assign teacher for lecture on based of his/her Work Experience and Area Of Interest.
+## assign teacher for lecture based on his/her Work Experience and Area Of Interest.
 def assign_teacher_for_lecture(request):
     if request.user.is_authenticated():
         jsonObj = json.loads(request.body)
