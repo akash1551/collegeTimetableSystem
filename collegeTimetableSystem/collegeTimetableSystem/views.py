@@ -76,3 +76,20 @@ def teacher_registration(request):
         teacherObj.save()
         print "Registration Successful"
         return HttpResponse(json.dumps({"validation":"Registration Successful.","redirecturl":"#/login","status":True}), content_type="application/json")
+
+def teacher_login(request):
+    data_dict = json.loads(request.body)
+    username = data_dict['userName']
+    password = data_dict['password']
+
+    user = auth.authenticate(username=username,password=password)
+    if user is not None:
+        if user.is_active:
+            auth.login(request,user)
+            print "Login Successful"
+            return HttpResponse(json.dumps({"validation":"Login Successful","status":True,'redirecturl':"/userHome"}), content_type="application/json")
+        else:
+            print "Login Failed"
+            return HttpResponse(json.dumps({"validation":"Invalid Login","status":False}), content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({"validation":"Invalid Login Credentials","status":False}), content_type="application/json")
